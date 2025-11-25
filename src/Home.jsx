@@ -11,16 +11,18 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(toDoList));
-  }, [toDoList]);
-
-  useEffect(() => {
-    const savedList = JSON.parse(localStorage.getItem("todos"));
-    if (savedList) {
-      setToDoList(savedList);
+    const savedList = localStorage.getItem("todos");
+    if (savedList !== null) {
+      setToDoList(JSON.parse(savedList));
     }
     inputRef.current.focus();
   }, []);
+
+  useEffect(() => {
+    if(toDoList.length > 0){
+      localStorage.setItem("todos", JSON.stringify(toDoList));
+    }
+  }, [toDoList]);
 
   const addItem = () => {
     if (query.trim().length > 0) {

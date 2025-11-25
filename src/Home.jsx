@@ -20,49 +20,62 @@ function Home() {
 
   const editItem = (index) => {
     const newValue = prompt("Edit your task: ", toDoList[index]);
-    if(newValue!==null && newValue.trim() !==""){
-        const updatedList = [...toDoList];
-        updatedList[index] = newValue;
-        setToDoList(updatedList);
-        inputRef.current.focus();
+    if (newValue !== null && newValue.trim() !== "") {
+      const updatedList = [...toDoList];
+      updatedList[index] = newValue;
+      setToDoList(updatedList);
+      inputRef.current.focus();
     }
-  }
+  };
 
   const deleteItem = (index) => {
-    const newList = toDoList.filter((_,i) => i !== index);
+    const newList = toDoList.filter((_, i) => i !== index);
     setToDoList(newList);
     inputRef.current.focus();
-  }
+  };
 
   return (
     <div className="container">
       <h1>To-Do List App</h1>
-
-      <input
-        type="text"
-        className="searchQuery"
-        placeholder="Enter item to list"
-        value={query}
-        ref={inputRef}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button className="addItem" onClick={addItem}>Add</button>
+      <div className="input-area">
+        <div>
+          <input
+            type="text"
+            className="searchQuery"
+            placeholder="Enter item to list"
+            value={query}
+            ref={inputRef}
+            onKeyDown={(e) => {
+              if(e.key==="Enter"){
+                addItem();
+              }
+            }}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
+        <div className="addItem" onClick={addItem}>
+            Add
+        </div>
+      </div>
       <div className="list-container">
         {toDoList.map((item, index) => (
           <div className="item" key={index}>
-            <div className="itemIndex">{index+1}.</div>
+            <div className="itemIndex">{index + 1}.</div>
             <div className="itemName">{item}</div>
-            <div className="editItem"><button onClick={() => editItem(index)}>
-              <span className="shortScreen">📝</span>
-              <span className="fullScreen">Edit</span>
-              </button></div>
-            <div className="deleteItem"><button onClick={() => deleteItem(index)}>
-              <span className="shortScreen">🗑️</span>
-              <span className="fullScreen">Delete</span>
-              </button></div>
+            <div className="editItem">
+              <button onClick={() => editItem(index)}>
+                <span className="shortScreen">📝</span>
+                <span className="fullScreen">Edit</span>
+              </button>
+            </div>
+            <div className="deleteItem">
+              <button onClick={() => deleteItem(index)}>
+                <span className="shortScreen">🗑️</span>
+                <span className="fullScreen">Delete</span>
+              </button>
+            </div>
           </div>
-        ))
-        }
+        ))}
       </div>
     </div>
   );

@@ -10,19 +10,31 @@ function Home() {
     inputRef.current.focus();
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(toDoList));
+  }, [toDoList]);
+
+  useEffect(() => {
+    const savedList = JSON.parse(localStorage.getItem("todos"));
+    if (savedList) {
+      setToDoList(savedList);
+    }
+    inputRef.current.focus();
+  }, []);
+
   const addItem = () => {
     if (query.trim().length > 0) {
-      setToDoList([...toDoList, query]);
+      setToDoList([...toDoList, { id: Date.now(), text: query }]);
       setQuery("");
       inputRef.current.focus();
     }
   };
 
   const editItem = (index) => {
-    const newValue = prompt("Edit your task: ", toDoList[index]);
+    const newValue = prompt("Edit your task: ", toDoList[index].text);
     if (newValue !== null && newValue.trim() !== "") {
       const updatedList = [...toDoList];
-      updatedList[index] = newValue;
+      updatedList[index].text = newValue;
       setToDoList(updatedList);
       inputRef.current.focus();
     }
@@ -46,7 +58,7 @@ function Home() {
             value={query}
             ref={inputRef}
             onKeyDown={(e) => {
-              if(e.key==="Enter"){
+              if (e.key === "Enter") {
                 addItem();
               }
             }}
@@ -54,14 +66,14 @@ function Home() {
           />
         </div>
         <div className="addItem" onClick={addItem}>
-            Add
+          Add
         </div>
       </div>
       <div className="list-container">
         {toDoList.map((item, index) => (
           <div className="item" key={index}>
             <div className="itemIndex">{index + 1}.</div>
-            <div className="itemName">{item}</div>
+            <div className="itemName">{item.text}</div>
             <div className="editItem">
               <button onClick={() => editItem(index)}>
                 <span className="shortScreen">📝</span>

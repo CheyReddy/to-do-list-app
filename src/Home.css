@@ -1,0 +1,111 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+h1{
+  color: white;
+}
+
+.searchQuery{
+  width: 400px;
+  font-size: medium;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.list-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    align-items: center;
+}
+
+.item{
+    background-color: #e2e2e2;
+  color: black;
+  display: grid;
+  grid-template-columns: 50px 1fr auto auto;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 600px;
+
+}
+.itemName {
+  font-size: 16px;
+  text-align: left;
+  overflow-x: hidden;
+  font-weight: bold;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 18px;
+}
+
+.editItem button,
+.deleteItem button {
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.addItem{
+  background-color: #0501ff;
+  color: white;
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.editItem button {
+  background-color: #1976d2;
+  color: white;
+}
+
+.deleteItem button {
+  background-color: #d32f2f;
+  color: white;
+}
+.shortScreen{
+  display: none;
+}
+
+@media (max-width: 639px){
+  h1{
+    font-size: 28px;
+  }
+  .searchQuery{
+    max-width: 200px;
+  }
+
+  .addItem{
+    margin-top: 10px;
+  }
+
+  .item{
+    grid-template-columns: 8px 1fr auto auto;
+    width: 200px;
+  }
+  .fullScreen{
+    display: none;
+  }
+  .shortScreen{
+    display: inline;
+  }
+  .editItem button,
+.deleteItem button {
+  padding: 3px;
+  font-size: 15px;
+  margin-left: 5px;
+}
+.itemName{
+  margin-left: 9px;
+}
+  
+}
